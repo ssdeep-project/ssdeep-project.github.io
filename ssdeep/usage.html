@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Getting Started with ssdeep</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://ssdeep-project.github.io/ssdeep/usage.html" />
+<link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+<header>
+<h1 id="project-title"><a href="../index.html">ssdeep Project</a> </h1>
+<h1 id="title">Getting Started with ssdeep</h1>
+<nav>
+<ul id="topnav">
+<li><a href="index.html">Home</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep/releases">Download</a></li>
+<li><a class="topnav-active" href="usage.html">Quick Start</a></li>
+<li><a href="demo.html">Demo</a></li>
+<li><a href="index.html#docs">Documentation</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep">Go to GitHub</a></li>
+</ul>
+</nav>
+</header>
+<article>
+<div class="content">
+<h2>Introduction</h2>
+<p>This document provides an introduction to using <a href="index.html">ssdeep</a>.</p>
+<p>This guide starts with an explanation of the basic functions of ssdeep and then gives some examples of using fuzzy hashing in real world situations.</p>
+<nav>
+<ul>
+<li><a href="#install">Installation</a></li>
+<li><a href="#basic">Basic Operation</a></li>
+<li><a href="#stdin">From the Standard Input</a></li>
+<li><a href="#error">Error Messages</a></li>
+<li><a href="#recursive">Recursive Mode</a></li>
+<li><a href="#match">Matching Mode</a></li>
+<li><a href="#usecase-reuse">Use Case: Source Code Reuse</a></li>
+<li><a href="#usecase-trunc">Use Case: Truncated</a></li>
+<li><a href="#needles">Needles in a Haystack</a></li>
+<li><a href="#sigcompare">Comparing Files of Signatures</a></li>
+</ul>
+</nav>
+<ul>
+</ul>
+<h2 id="install">Installation</h2>
+<h3>Windows</h3>
+<p>
+Users running Microsoft Windows are strongly encouraged to download the precompiled binaries
+from <a href="https://github.com/ssdeep-project/ssdeep/releases">GitHub project page</a>.
+</p>
+<p>
+Please note that these binaries are created using a <a href="https://mingw-w64.org/">Mingw-w64</a> cross compiler.
+Compiling the programs directly from Windows is not supported.
+</p>
+<h3>Automatic Installation</h3>
+<p>
+If the distribution you use have ssdeep package,
+you may install the package using a package manager.
+</p>
+<p>
+See <a href="index.html#platforms">Platforms section on the home page</a>
+to check if your distribution / operating system has ssdeep package.
+</p>
+<h3>Manual Installation</h3>
+<p>
+If your operating system does not support the automatic installation methods described above,
+you will have to download the source code and compile the programs yourself.
+</p>
+<p>
+First download the latest tarball of the program from <a href="https://github.com/ssdeep-project/ssdeep/releases">GitHub project page</a>.
+This file should be named something like <code>ssdeep-2.14.tar.gz</code>. Uncompress the file with the following command:
+</p>
+<blockquote><code>$ tar zxf ssdeep-2.14.tar.gz</code></blockquote>
+<p>
+Change into the decompressed directory:
+</p>
+<blockquote><code>$ cd ssdeep-2.14</code></blockquote>
+<p>
+and configure the program.
+</p>
+<blockquote><code>$ ./configure</code></blockquote>
+<p>
+If you checked out the source code from the <a href="https://github.com/ssdeep-project/ssdeep">git repository</a>
+or downloaded a bare distribution file (which GitHub automatically generates),
+you may not able to find <code>configure</code> script on the decompressed directory.
+If so, install GNU Autotools and run:
+</p>
+<blockquote><code>$ ./bootstrap</code></blockquote>
+<p>
+to generate <code>configure</code> script.
+</p>
+<p>
+The configure script can accept lots of options. Run <code>./configure --help</code> for the complete list.
+The most common option used is the <code>--prefix</code> option which installs the program in a location
+other than the default, <code>/usr/local</code>.
+If you wanted to install the program elsewhere, for example, <code>/tmp/ssdeep</code>,
+you would run <code>./configure --prefix=/tmp/ssdeep</code> instead.
+</p>
+<p>
+On 32-bit (or less) platforms, new bit-parallel algorithms
+implemented in version 2.14 may be slower on the worst case (though it should not, even if 64-bit integer is emulated).
+You may try <code>--disable-bitparallel-string-ops</code> option and benchmark if this option is suitable for you and your platform.
+</p>
+<p>
+You can now compile the program using the make command:
+</p>
+<blockquote><code>$ make</code></blockquote>
+<p>
+and install it:
+</p>
+<blockquote><code># make install</code></blockquote>
+<p>
+Note that you must be root on most operating systems to install the program to its default location, <code>/usr/local/bin</code>. The tool <a href="https://www.sudo.ws/">sudo</a> may help:
+</p>
+<blockquote><code>$ sudo make install</code></blockquote>
+<h2 id="basic">Basic Operation</h2>
+<p>
+By default, ssdeep generates context triggered piecewise hashes, or fuzzy hashes, for each input file. The output is proceeded by a file header.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep config.h INSTALL m4/libtool.m4</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+96:s4Ud1Lj96tHHlZDrwciQmA+4uy1I0G4HYuL8N3TzS8QsO/wqWXLcMSx:sF1LjEtHHlZDrJzrhuyZvHYm8tKp/RWO,"/workdir/config.h"
+384:EWo4X1WaPW9ZWhWzLo+lWpct/fWbkWsWIwW0/S7dZhgG8:EWo4X1WmW9ZWhWH/WpchfWgWsWTWtf8,"/workdir/INSTALL"
+6144:3wSQSlrBHFjOvwYAU/Fsgi/2WDg5+YaNk5xcHrYw+Zg+XrZsGEREYRGAFU25ttR/:ctM7E0L4q,"/workdir/m4/libtool.m4"
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+Notice how the above output shows the full path in the filename.
+You can have ssdeep print relative filenames instead of absolute ones.
+That is, omit all of the path information except that specified on the command line.
+To enable relative paths, use the <code>-l</code> flag. Repeating our first example with the <code>-l</code> flag:
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -l config.h INSTALL m4/libtool.m4</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+96:s4Ud1Lj96tHHlZDrwciQmA+4uy1I0G4HYuL8N3TzS8QsO/wqWXLcMSx:sF1LjEtHHlZDrJzrhuyZvHYm8tKp/RWO,"config.h"
+384:EWo4X1WaPW9ZWhWzLo+lWpct/fWbkWsWIwW0/S7dZhgG8:EWo4X1WmW9ZWhWH/WpchfWgWsWTWtf8,"INSTALL"
+6144:3wSQSlrBHFjOvwYAU/Fsgi/2WDg5+YaNk5xcHrYw+Zg+XrZsGEREYRGAFU25ttR/:ctM7E0L4q,"m4/libtool.m4"
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+You can have ssdeep only print out the basename of each file it processes.
+That is, all directory information will be stripped off.
+To enable basename mode, use the <code>-b</code> flag:
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -b config.h INSTALL m4/libtool.m4</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+96:s4Ud1Lj96tHHlZDrwciQmA+4uy1I0G4HYuL8N3TzS8QsO/wqWXLcMSx:sF1LjEtHHlZDrJzrhuyZvHYm8tKp/RWO,"config.h"
+384:EWo4X1WaPW9ZWhWzLo+lWpct/fWbkWsWIwW0/S7dZhgG8:EWo4X1WmW9ZWhWH/WpchfWgWsWTWtf8,"INSTALL"
+6144:3wSQSlrBHFjOvwYAU/Fsgi/2WDg5+YaNk5xcHrYw+Zg+XrZsGEREYRGAFU25ttR/:ctM7E0L4q,"libtool.m4"
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="stdin">From the Standard Input</h2>
+<p>
+If no input files are specified, it accepts input from the standard input.
+(older versions may display an error message)
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep</span>
+(it waits input from the standard input)
+<em>&lt;Ctrl+D&gt;&lt;Ctrl+D&gt;</em>
+ssdeep,1.1--blocksize:hash:hash,filename
+3:q8wK6FuFWcEqlv:3wK6FN1I,"stdin"
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="error">Error Messages</h2>
+<p>
+If an input file can't be found or can't be accessed, an error message is normally printed.
+These, and all other error messages, can be surpressed by using the <code>-s</code> flag.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep doesnotexist.txt cannotaccess.txt</span>
+/workdir/doesnotexist.txt: No such file or directory
+/workdir/cannotaccess.txt: Permission denied
+<span class="code-console">[user@localhost /workdir]$ ssdeep -s doesnotexist.txt cannotaccess.txt</span>
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+Of course, you can also redirect the standard error output:
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep doesnotexist.txt cannotaccess.txt 2&gt;/dev/null</span>
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="recursive">Recursive Mode</h2>
+<p>
+Normally, attempting to process a directory will generate an error message.
+Under recursive mode, ssdeep will hash files in the current directory and file in subdirectories.
+Recursive mode is activated by using the <code>-r</code> flag.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep *</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+/workdir/backups: Is a directory
+96:KQhaGCVZGhr83h3bc0ok3892m12wzgnH5w2pw+sxNEI58:FIVkH4x73h39LH+2w+sxaD,"/workdir/config.h"
+/workdir/www: Is a directory
+<span class="code-console">[user@localhost /workdir]$ ssdeep -r *</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+768:McAQ8tPlH25e85Q2OiYpD08NvHmjJ97UfPMO47sekO:uN9M553OiiN/OJ9MM+e3,"/workdir/mystuff.zip"
+384:bcEKuglk+GUYIk90a1lEF+Wfsy2solvW8mK1enQXP79:bmlFGUNk9L1roy4K1enQ,"/workdir/backups/ssdeep.exe"
+96:CFzROqsgconvv7uUo6jTcEGEvpVCN116S:CNVnqj8cMVCv16,"/workdir/backups/foo.doc"
+96:KQhaGCVZGhr83h3bc0ok3892m12wzgnH5w2pw+sxNEI58:FIVkH4x73h39LH+2w+sxaD,"/workdir/config.h"
+96:aN0jOc0WlWW+LWQnjv7ufGcE5ESr5YaZ6uicEDEO9VCN116Sb5EutkB:aSeoF+L/zqfGtfr5YiWcsVCv16W5htk,"/workdir/www/index.html"
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="match">Matching Mode</h2>
+<p>
+One of the more powerful features of ssdeep is the ability to match the hashes of input files against a list of known hashes.
+Because of inexact nature of fuzzy hashing, note that just because ssdeep indicates that two files match,
+it does <em>not</em> mean that those files are related.
+You should examine every pair of matching files individually to see how well they correspond.
+</p>
+<p>
+Here's a simple example of how ssdeep can match files that are not identical.
+We take an existing file, make a copy of it, and append a single character to it.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ls -l foo.txt</span>
+-rw-r--r-- 1 user users 4274 Jan  2 03:04 foo.txt
+<span class="code-console">[user@localhost /workdir]$ cp foo.txt bar.txt</span>
+<span class="code-console">[user@localhost /workdir]$ echo 1 &gt;&gt;bar.txt</span></pre></code></blockquote>
+<p>
+A cryptographic hashing algorithm like MD5 <em>can't</em> be used to match these files; they have wildly different hashes.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ md5sum foo.txt bar.txt</span>
+33e63a6fb553396089206212a5af17e3  foo.txt
+890aecccf13601c80f194bce9f5f6d09  bar.txt
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+But fuzzy hashing <em>can</em>! We compute the fuzzy hash of one file and use the matching mode to match the other one.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -b foo.txt &gt;hashes.txt</span>
+<span class="code-console">[user@localhost /workdir]$ ssdeep -b -m hashes.txt bar.txt</span>
+bar.txt matches hashes.txt:foo.txt (99)
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+The number at the end of the line is a match score,
+or a weighted measure of how similar these files are.
+The higher the number, the more similar the files.
+</p>
+<h2 id="usecase-reuse">Use Case: Source Code Reuse</h2>
+<p>
+As a more practical example of ssdeep's matching functionality, you can use
+ssdeep's matching mode to help find source code reuse.
+Let's say we have two folders, <code>ssdeep-1.1</code> and <code>md5deep-1.12</code>
+that contain the source code for each of those tools.
+You can compare their contents by computing fuzzy hashes for one tree and then comparing them against the other:
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -l -r md5deep-1.12 &gt;md5deep-hashes.txt</span>
+<span class="code-console">[user@localhost /workdir]$ ssdeep -l -r -m md5deep-hashes.txt ssdeep-1.1</span>
+ssdeep-1.1/cycles.c matches md5deep-1.12/cycles.c (94)
+ssdeep-1.1/dig.c matches md5deep-1.12/dig.c (35)
+ssdeep-1.1/helpers.c matches md5deep-1.12/helpers.c (57)
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+Ta da! You can see that Jesse reused code from the md5deep project when writing ssdeep.
+</p>
+<h2 id="usecase-trunc">Use Case: Truncated Files</h2>
+<p>
+Along with source code reuse, you can also use fuzzy hashing to find truncated files.
+Here's a sample using a fake filename.
+We'll compute the fuzzy hash for the file, make a copy that contains only the
+first 29% of the original, and then try to match the truncated version back to the original.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ls -l all-the-kings-men.avi</span>
+-rw-r--r-- 1 user users 733478912 Jan  2 03:04 all-the-kings-men.avi
+<span class="code-console">[user@localhost /workdir]$ ssdeep -b all-the-kings-men.avi &gt;sig.txt</span>
+<span class="code-console">[user@localhost /workdir]$ cat sig.txt</span>
+ssdeep,1.1--blocksize:hash:hash,filename
+12582912:imU4zlwQ1LYdr1uKWM31bN0v1NySeBDBxs7/gOpQWzFLp1uLeBi18MP8:imU0wgMdwTMdN0v83xiHQWzz1uLo698,"all-the-kings-men.avi"
+<span class="code-console">[user@localhost /workdir]$ dd bs=1M count=200 if=all-the-kings-men.avi of=partial.avi</span>
+200+0 records in
+200+0 records out
+209715200 bytes (210 MB, 200 MiB) copied, 0.23091 s, 908 MB/s
+<span class="code-console">[user@localhost /workdir]$ ls -l partial.avi</span>
+-rw-r--r-- 1 user users 209715200 Jan  5 06:42 partial.avi
+<span class="code-console">[user@localhost /workdir]$ ssdeep -b -m sig.txt partial.avi</span>
+partial.avi matches sig.txt:all-the-kings-men.avi (43)
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="needles">Needles in a Haystack</h2>
+<p>
+You can also compare many without writing out any hashes to the disk using two different methods.
+Let's say that we have a whole bunch of files in two or three directories and want to know which ones are similar to each other.
+We can use the <code>-d</code> mode to display these matches.
+The switch causes ssdeep to compute a fuzzy hash for each input file and compare it against all of the other input files.
+</p>
+<p>
+In this example, we've gathered a whole bunch of Microsoft Word documents
+in the folders <code>Incoming</code>, <code>Outgoing</code>, and <code>Trash</code>.
+Rather than go through all of the documents, it would be nice to eliminate those are substantially the same.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -l -r -d Incoming Outgoing Trash</span>
+Outgoing/Corporate Espionage/Our Budget.doc matches Incoming/Budget 2007.doc (99)
+Outgoing/Personnel Mayhem/Your Buddy Makes More Than You.doc matches Incoming/Salaries.doc (45)
+Trash/DO NOT DISTRIBUTE.doc matches Outgoing/Plan for Hostile Takeover.doc (88)
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+Oh my!
+</p>
+<p>
+The <code>-p</code> mode works similarly, but displays the results in a slightly nicer format.
+If there are two input files A and B that match, the <code>-d</code> mode will only display that "A matches B."
+The <code>-p</code> mode will display that "A matches B," skips a line, and then "B matches A."
+This greatly increases the length of the output, but can make files easier to find.
+Here's the above input again, this time using the <code>-p</code> flag.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -l -r -p Incoming Outgoing Trash</span>
+Incoming/Budget 2007.doc matches Outgoing/Corporate Espionage/Our Budget.doc (99)
+
+Incoming/Salaries.doc matches Outgoing/Personnel Mayhem/Your Buddy Makes More Than You.doc (45)
+
+Outgoing/Corporate Espionage/Our Budget.doc matches Incoming/Budget 2007.doc (99)
+
+Outgoing/Personnel Mayhem/Your Buddy Makes More Than You.doc matches Incoming/Salaries.doc (45)
+
+Outgoing/Plan for Hostile Takeover.doc matches Trash/DO NOT DISTRIBUTE.doc (88)
+
+Trash/DO NOT DISTRIBUTE.doc matches Outgoing/Plan for Hostile Takeover.doc (88)
+
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<h2 id="sigcompare">Comparing Files of Signatures</h2>
+<p>
+After you've generated several files of fuzzy hashes you may wish to compare those signatures to each other.
+You can compare one or more files of signatures against each other using the <code>-x</code> flag.
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -r /etc &gt;list1.txt</span>
+<span class="code-console">[user@localhost /workdir]$ ssdeep -r /usr &gt;list2.txt</span>
+<span class="code-console">[user@localhost /workdir]$ ssdeep -l -r ./known_malware &gt;malware-list.txt</span>
+<span class="code-console">[user@localhost /workdir]$ ssdeep -x list1.txt list2.txt malware-list.txt</span>
+list1.txt:/etc/rcc.d/init.d matches malware-list.txt:./known_malware/wlk_rootkit/dropper (86)
+
+malware-list.txt:./known_malware/wlk_rootkit/dropper matches list1.txt:/etc/rcc.d/init.d (86)
+
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+<p>
+The above method compares all of the signatures against each other.
+This can take some time, especially if the files are large.
+If you'd rather compare some unknown signatures against a set of known signatures,
+you can use the <code>-k</code> flag.
+Let's say you have some signatures for malicious programs,
+<code>badfiles.txt</code> and <code>worsefiles.txt</code>.
+You then compute the fuzzy hashes for programs on some workstations,
+which are saved to <code>comp1.txt</code>, <code>comp2.txt</code>, and <code>comp3.txt</code>.
+You can compare these unknowns to the knowns like this:
+</p>
+<blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep -k badfiles.txt -k worsefiles.txt comp1.txt comp2.txt comp3.txt</span>
+comp1.txt:WINWORD2.EXE matches badfiles.txt:some_trojan.exe (84)
+comp3:txt:ntoskrrnl.exe matches worsefiles.txt:delete_all_data.exe (77)
+<span class="code-console-end">[user@localhost /workdir]$</span></pre></code></blockquote>
+</div>
+</article>
+<footer>
+<div id="footer">
+<p>
+Copyright &copy; 2008-2015 Jesse Kornblum;
+Copyright &copy; 2017 Tsukasa OI
+</p>
+<p>
+This page was last updated on 2017-09-12.
+</p>
+</div>
+</footer>
+</body>
+</html>

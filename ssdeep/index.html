@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ssdeep - Fuzzy hashing program</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://ssdeep-project.github.io/ssdeep/index.html" />
+<link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+<header>
+<h1 id="project-title"><a href="../index.html">ssdeep Project</a> </h1>
+<h1 id="title">ssdeep - Fuzzy hashing program</h1>
+<nav>
+<ul id="topnav">
+<li><a class="topnav-active" href="index.html">Home</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep/releases">Download</a></li>
+<li><a href="usage.html">Quick Start</a></li>
+<li><a href="demo.html">Demo</a></li>
+<li><a href="#docs">Documentation</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep">Go to GitHub</a></li>
+</ul>
+</nav>
+</header>
+<article>
+<div class="content">
+<h2>Introduction</h2>
+<p>
+ssdeep is a program for computing context triggered piecewise hashes (CTPH).
+Also called fuzzy hashes, CTPH can match inputs that have homologies.
+Such inputs have sequences of identical bytes in the same order, although bytes in between these sequences may be different in both content and length.
+</p>
+<p>
+A complete explanation of CTPH can be found in
+<a href="http://dx.doi.org/10.1016/j.diin.2006.06.015">Identifying almost identical files using context triggered piecewise hashing</a> from the journal Digital Investigation.
+There is a free version of this paper available through the Digital Forensic Research Workshop conference,
+<a href="http://dfrws.org/2006/proceedings/12-Kornblum.pdf">free version of Identifying almost identical files using context triggered piecewise hashing.</a>
+</p>
+<p>
+It also provides a library (libfuzzy) to generate/compare fuzzy hashes.
+</p>
+<p>
+ssdeep hashes are now widely used for simple identification purposes. (e.g. Basic Properties section in <a href="https://virustotal.com/">VirusTotal</a>)
+Although “better fuzzy hashes” are available, ssdeep is still one of the primary choices because of its speed (now about twice as fast as TLSH) and being a de facto standard.
+</p>
+<h2 id="platforms">Platforms</h2>
+<ul>
+<li>
+	<p>Windows</p>
+	<p>Download Windows (32-bit) binaries from <a href="https://github.com/ssdeep-project/ssdeep/releases">GitHub project page</a>.
+	This binary package is tested on Windows 7 and Windows 10 (version 1703 - Creators Update).</p>
+</li>
+<li>
+	<p>Ubuntu</p>
+	<p><a href="https://packages.ubuntu.com/zesty/ssdeep">ssdeep package</a> is available.</p>
+</li>
+<li>
+	<p>Fedora</p>
+	<p><a href="https://admin.fedoraproject.org/pkgdb/package/rpms/ssdeep/">ssdeep package</a> is available.</p>
+</li>
+<li>
+	<p>Debian</p>
+	<p><a href="https://packages.debian.org/stretch/ssdeep">ssdeep package</a> is available.</p>
+</li>
+<li>
+	<p>CentOS (or other RHEL-based Linux distributions)</p>
+	<p>ssdeep package from <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> is available.</p>
+</li>
+<li>
+	<p>Arch Linux</p>
+	<p><a href="https://aur.archlinux.org/packages/ssdeep/">ssdeep package from AUR</a> is available (compilation is required but mostly automated).
+	If you have <a href="https://archlinux.fr/yaourt-en/">yaourt</a> installed, you can build and install ssdeep automatically just like standard packages.</p>
+</li>
+<li>
+	<p>FreeBSD</p>
+	<p><a href="https://svnweb.freebsd.org/ports/head/security/ssdeep/">security/ssdeep package from FreeBSD Ports</a> is available
+	(compilation is required but easy).</p>
+</li>
+<li>
+	<p>Other *nix platforms</p>
+	<p>If the distribution you use does not provide ssdeep package, you will need to build it yourself.
+	Download the source code from <a href="https://github.com/ssdeep-project/ssdeep/releases">GitHub project page</a> and install it.
+	It should work at most of GNU Autotools-compatible environment.</p>
+</li>
+</ul>
+<h2 id="download">Download</h2>
+<p>
+ssdeep is available at <a href="https://github.com/ssdeep-project/ssdeep">GitHub</a>.
+The latest version is 2.14 (released on 2017-09-12). You can take a look at the <a href="changes.txt">complete changelog</a>, but here are the changes in the latest version:
+<ul>
+<li>Optimizations to the fuzzy hashing engine (hash generator can run as twice as fast and comparison can run five times faster than the previous release)</li>
+<li>Fixed issue when certain memory allocation is failed</li>
+</ul>
+</p>
+<h2 id="docs">Documentation</h2>
+<ul>
+<li><a href="usage.html">Quick Start</a></li>
+<li><a href="manpage.txt">Manual (manpage of ssdeep.1)</a></li>
+<li><a href="doc/api/html/index.html">API Documentation</a></li>
+</ul>
+<h2 id="copying">License / Copying</h2>
+<p>
+This program and its library are licensed
+under the terms of <a href="https://www.gnu.org/licenses/gpl.html">the GNU General Public License</a>
+as published by <a href="https://www.fsf.org/">the Free Software Foundation</a>;
+either version 2 of the License, or (at your option) any later version.
+</p>
+<h2 id="people">People</h2>
+<p>Let us introduce some of the people who gave major contributions to the program.</p>
+<h3>Jesse Kornblum</h3>
+<p>
+ssdeep was originally written by Jesse Kornblum.
+He created this useful program based on
+original <a href="http://www.samba.org/ftp/unpacked/junkcode/spamsum/">spamsum</a> code by Dr. Andrew Trigdell and
+kept this program improved for years.
+</p>
+<h3>Helmut Grohne</h3>
+<p>
+He mainly contributed to ssdeep version 2.10 and 2.11.
+Thanks to his re-written fuzzy hashing engine, libfuzzy can now be used from multi-threaded programs
+and is capable to process streams without seek capabilities.
+</p>
+<h3>Tsukasa OI</h3>
+<p>
+He is the current project maintainer and mainly contributed to ssdeep version 2.13 and 2.14.
+He improved stability, portability and speed of the fuzzy hashing engine and also fixed major bugs.
+</p>
+<h2 id="contact">Contact</h2>
+<p>If you have any questions or issues, please create an issue on <a href="https://github.com/ssdeep-project/ssdeep">GitHub</a>.</p>
+<p>You may also contact the current project maintainer, Tsukasa OI &lt;floss_ssdeep *at irq .dot a4lg .dot com.&gt;.</p>
+</div>
+</article>
+<footer>
+<div id="footer">
+<p>
+Copyright &copy; 2008-2015 Jesse Kornblum;
+Copyright &copy; 2017 Tsukasa OI
+</p>
+<p>
+This page was last updated on 2017-09-12.
+</p>
+</div>
+</footer>
+</body>
+</html>

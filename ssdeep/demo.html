@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ssdeep Online Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://ssdeep-project.github.io/ssdeep/demo.html" />
+<link rel="stylesheet" href="../style.css" />
+<style type="text/css">
+h2#demo_errors_header{margin-top:0}
+#demo_errors_msg{margin-bottom:0}
+#demo_errors_msg li{margin-bottom:0;margin-left:0.5em}
+input{margin-right:0.7em}
+.demo-progress{font-style:italic}
+.demo-progress-img{margin-right:1em}
+.demo-hashgen-msg{color:#c66}
+</style>
+<style type="text/css" id="dynamic-rules">
+.ssdeep-filename{display:inline}
+</style>
+</head>
+<body>
+<header>
+<h1 id="project-title"><a href="../index.html">ssdeep Project</a> </h1>
+<h1 id="title">ssdeep Online Demo</h1>
+<nav>
+<ul id="topnav">
+<li><a href="index.html">Home</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep/releases">Download</a></li>
+<li><a href="usage.html">Quick Start</a></li>
+<li><a class="topnav-active" href="demo.html">Demo</a></li>
+<li><a href="index.html#docs">Documentation</a></li>
+<li><a href="https://github.com/ssdeep-project/ssdeep">Go to GitHub</a></li>
+</ul>
+</nav>
+</header>
+<article>
+<div class="content">
+<noscript id="demo_errors_noscript">
+<div class="demo_errors">
+<h2>Warning</h2>
+<ul><li>This page requires JavaScript. Enable JavaScript and try again.</p>
+</div>
+</noscript>
+<div class="demo_errors" id="demo_errors" style="display:none"><h2 id="demo_errors_header"></h2><p id="demo_errors_msg"></p></div>
+<h2>About this Demo</h2>
+<p>
+In this page, you can test some features of ssdeep online.
+It does not upload your data to some remote server but requires modern Web technologies such as...
+</p>
+<ul>
+<li>WebAssembly</li>
+<li>Web Workers</li>
+</ul>
+<p>Enjoy!</p>
+<p>If it has stopped without any error messages, try reloading the page.</p>
+<h2>Demo: Fuzzy Hash Generator</h2>
+<h3>Options</h3>
+<p><label><input id="demo_hashgen_opt_display_filenames" type="checkbox" checked="1" />Display file names on output</label></p>
+<h3>Input</h3>
+<form>
+<p>
+<input type="reset" /><input type="file" id="demo_hashgen_files" name="demo_hashgen_files[]" multiple="1" disabled="1" />
+</p>
+</form>
+<h3>Output</h3>
+<ul id="demo_hashgen_output">
+</ul>
+<h3>Notes</h3>
+<ul id="demo_hashgen_notes">
+</ul>
+<h2>Demo: Fuzzy Hash Comparator</h2>
+<h3>Input</h3>
+<form>
+<p>
+<label>Hash 1: <input type="text" id="demo_hashcomp1_hash1" value="" /></label><br />
+<label>Hash 2: <input type="text" id="demo_hashcomp1_hash2" value="" /></label>
+</p>
+<p>
+<input type="reset" value="Reset" /><button type="submit" id="demo_hashcomp1_button" disabled="1" autofocus="1" >Run</button>
+</p>
+</form>
+<h3>Output</h3>
+<p id="demo_hashcomp1_output"></p>
+<h2>Credits</h2>
+<p>You can download the source code of the WebAssembly part from <a href="https://github.com/ssdeep-project/fuzzy-wasm">fuzzy-wasm on GitHub</a>
+(commit <a href="https://github.com/ssdeep-project/fuzzy-wasm/tree/56cd68c0c2f29ba0ac84128a31b8b98e66916a32">56cd68c0</a> is used for WebAssembly part).</p>
+<blockquote><pre>
+===========================================================================
+FUZZY-WASM
+===========================================================================
+
+Copyright (C) 2017 Tsukasa OI
+
+See SSDEEP section below for license details.
+
+===========================================================================
+SSDEEP
+===========================================================================
+
+Copyright (C) 2002 Andrew Tridgell
+Copyright (C) 2006 ManTech International Corporation
+Copyright (C) 2013 Helmut Grohne
+Copyright (C) 2017 Tsukasa OI
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+===========================================================================
+MUSL LIBC
+===========================================================================
+
+musl as a whole is licensed under the following standard MIT license:
+
+----------------------------------------------------------------------
+Copyright © 2005-2014 Rich Felker, et al.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+----------------------------------------------------------------------
+</pre></blockquote>
+<p>The loading icon is generated by <a href="http://www.ajaxload.info/">ajaxload.info</a> and licensed under the terms of <a href="http://www.wtfpl.net/">the Do What The Fuck You Want To Public License</a>.</p>
+</div>
+</article>
+<footer>
+<div id="footer">
+<p>
+Copyright &copy; 2017 Tsukasa OI
+</p>
+<p>
+This page was last updated on 2017-09-12.
+</p>
+</div>
+</footer>
+<script type="javascript/inline-worker" id="ssdeep-worker">
+</script>
+<script>
+"use strict";
+/*
+	ssdeep Online Demo: Frontend Module
+	This script is licensed under the MIT License.
+	Copyright (C) 2017 Tsukasa OI.
+*/
+
+var SSDEEP_MAX_WORK_THREADS = 3;
+
+var ssdeep =
+{
+	jobs:
+	{
+		_JobObject: function(type)
+		{
+			this.type = type;
+		},
+		HashFile: function(file)
+		{
+			ssdeep.jobs._JobObject.call(this, "HASH_FILE");
+			this.file = file;
+		},
+		CompareSingle: function(hash1, hash2)
+		{
+			ssdeep.jobs._JobObject.call(this, "COMPARE_1");
+			this.hash1 = hash1;
+			this.hash2 = hash2;
+		},
+	},
+	WorkerObject: function()
+	{
+		this.worker = null;
+		this.jobInProgress = ssdeep._JobItem.createInvalidWork();
+		this.unavailable = true;
+	},
+	createWorker: function() // async
+	{
+		var obj = new ssdeep.WorkerObject();
+		return obj.reset();
+	},
+	ContextObject: function()
+	{
+		this.workers = [];
+		this.workQueue = [];
+		this.workID = null;
+		this.runningWorkers = 0;
+		this.maxWorkers = SSDEEP_MAX_WORK_THREADS;
+	},
+	create: function() // async
+	{
+		var obj = new ssdeep.ContextObject();
+		return obj.reset();
+	},
+	_JobItem: function(job, resolve, reject, onprogress)
+	{
+		this.job = job;
+		this.resolve = resolve;
+		this.reject = reject;
+		this.onprogress = onprogress;
+	},
+	getWorkerUrl: function()
+	{
+		return "ssdeep-worker.js";
+	},
+};
+ssdeep._JobItem.createInvalidWork = function()
+{
+	return new ssdeep._JobItem(null, function(v){}, function(v){});
+}
+ssdeep.WorkerObject.prototype.reset = function() // async
+{
+	this.unavailable = true;
+	if (this.worker !== null)
+	{
+		if (this.jobInProgress !== null)
+			this.jobInProgress.reject({type:"CANCELLED",data:"Web Worker is cancelled."});
+		this.worker.terminate();
+	}
+	this.worker = new Worker(ssdeep.getWorkerUrl());
+	var self = this;
+	return new Promise((resolve, reject) =>
+	{
+		self.worker.onerror = function()
+		{
+			reject({type:"HARDERROR_WORKER",data:"Web Worker raised some error while initialization."});
+		};
+		self.worker.onmessage = function(e)
+		{
+			switch (e.data.type)
+			{
+			case "INIT1":
+				self.worker.onmessage = function(e)
+				{
+					var j = self.jobInProgress;
+					if (self.jobInProgress === null)
+						return;
+					switch (e.data.type)
+					{
+					case "RUN1":
+						self.jobInProgress = null;
+						j.resolve(e.data.data);
+						break;
+					case "RUN0":
+						self.jobInProgress = null;
+						j.reject({type:"SOFTERROR",data:e.data.data});
+						break;
+					case "RUN-":
+						self.jobInProgress = null;
+						j.reject({type:"HARDERROR_WORKER",data:e.data.data});
+						break;
+					case "PROG":
+						if (self.jobInProgress.onprogress !== undefined && self.jobInProgress.onprogress !== null)
+							self.jobInProgress.onprogress.call(self.jobInProgress.job, e.data.data);
+						break;
+					default:
+						self.jobInProgress = null;
+						j.reject({type:"HARDERROR_RESPONSE",data:null});
+						break;
+					}
+				};
+				self.worker.onerror = function()
+				{
+					if (self.jobInProgress !== null)
+						self.jobInProgress.reject({type:"HARDERROR_WORKER",data:"Web Worker raised some error while processing."});
+				};
+				self.jobInProgress = null;
+				self.unavailable = false;
+				resolve(self);
+				break;
+			case "INIT0":
+				reject({type:"HARDERROR_WORKER",data:e.data.data});
+				break;
+			default:
+				reject({type:"HARDERROR_RESPONSE",data:null});
+				break;
+			}
+		};
+		// send global initialization message
+		self.worker.postMessage({type:"INIT!",data:null});
+	});
+};
+ssdeep.WorkerObject.prototype._runSingleJob = function(job)
+{
+	this.jobInProgress = job;
+	this.worker.postMessage({type:"RUN!",data:job.job._toActualJob()});
+};
+ssdeep.ContextObject.prototype.reset = function() // async
+{
+	var workID = new Object();
+	this.workID = workID;
+	this.workers = [];
+	this.workQueue = [];
+	this.runningWorkers = 0;
+	this.maxWorkers = SSDEEP_MAX_WORK_THREADS;
+	var promises = [];
+	for (var i = 0; i < this.maxWorkers; i++)
+	{
+		promises.push(ssdeep.createWorker().then(worker =>
+		{
+			if (workID === this.workID)
+				this.workers.push(worker);
+			return null;
+		}));
+	}
+	return Promise.all(promises).then(
+		workers => {
+			return this;
+		},
+		firstReason => {
+			throw "Web worker initialization failed.";
+		}
+	);
+};
+ssdeep.ContextObject.prototype.fillWorkers = function()
+{
+	for (var i = 0; i < this.maxWorkers; i++)
+		this._processQueue();
+};
+ssdeep.ContextObject.prototype.resetPartOfWorkers = function(callback)
+{
+	var self = this;
+	for (var i = 0; i < this.workQueue.length; i++)
+	{
+		if (callback(this.workQueue[i].job))
+		{
+			this.workQueue.splice(i, 1);
+			i--;
+		}
+	}
+	for (var i = 0; i < this.workers.length; i++)
+	{
+		if (this.workers[i].unavailable || this.workers[i].jobInProgress === null)
+			continue;
+		if (callback(this.workers[i].jobInProgress.job))
+			this.workers[i].reset().then(w =>
+			{
+				this._processQueue();
+			});
+	}
+}
+ssdeep.ContextObject.prototype._runJobsInWorker = function(i, initialJob)
+{
+	this.runningWorkers++;
+	var resolve = initialJob.resolve;
+	var reject = initialJob.reject;
+	initialJob.resolve = (v) =>
+	{
+		this.runningWorkers--;
+		resolve(v);
+		this._processQueue();
+	};
+	initialJob.reject = (v) =>
+	{
+		this.runningWorkers--;
+		reject(v);
+		this._processQueue();
+	};
+	this.workers[i]._runSingleJob(initialJob);
+};
+ssdeep.ContextObject.prototype._processQueue = function()
+{
+	while (true)
+	{
+		if (this.workQueue.length == 0) // no jobs queued
+			break;
+		var ok = false;
+		var i;
+		for (i = 0; i < this.workers.length; i++)
+		{
+			if (this.workers[i].jobInProgress === null && !this.workers[i].unavailable)
+			{
+				ok = true;
+				break;
+			}
+		}
+		if (!ok) // no free workers available
+			break;
+		var job = this.workQueue.shift();
+		this._runJobsInWorker(i, job);
+	}
+};
+ssdeep.ContextObject.prototype._pushJob = function(job, onprogress) // async
+{
+	return new Promise((resolve, reject) =>
+	{
+		var jobItem = new ssdeep._JobItem(job, resolve, reject, onprogress);
+		this.workQueue.push(jobItem);
+		this._processQueue();
+	});
+};
+ssdeep.jobs._JobObject.prototype =
+{
+	run: function(context)
+	{
+		context._pushJob(this, this.onprogress).then(
+			result =>
+			{
+				if (result.ret >= 0)
+					this.onsuccess(result);
+				else
+					this.onfailure(result);
+			},
+			reason => {
+				this.onerror(reason);
+			}
+		);
+	},
+	onsuccess : function(status){},
+	onfailure : function(status){},
+	onerror   : function(status){},
+	onprogress: function(status){},
+};
+ssdeep.jobs.HashFile.prototype = Object.create(ssdeep.jobs._JobObject.prototype);
+ssdeep.jobs.CompareSingle.prototype = Object.create(ssdeep.jobs._JobObject.prototype);
+ssdeep.jobs.HashFile.prototype._toActualJob = function()
+{
+	return {type:"HASH_FILE",data:this.file};
+};
+ssdeep.jobs.CompareSingle.prototype._toActualJob = function()
+{
+	return {type:"COMPARE_1",data:[this.hash1,this.hash2]};
+};
+</script>
+<script><!--
+/*! modernizr 3.5.0 (Custom Build) | MIT *
+ * https://modernizr.com/download/?-filereader-promises-webworkers-setclasses !*/
+!function(e,n,s){function o(e,n){return typeof e===n}function i(){var e,n,s,i,a,l,f;for(var c in r)if(r.hasOwnProperty(c)){if(e=[],n=r[c],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(s=0;s<n.options.aliases.length;s++)e.push(n.options.aliases[s].toLowerCase());for(i=o(n.fn,"function")?n.fn():n.fn,a=0;a<e.length;a++)l=e[a],f=l.split("."),1===f.length?Modernizr[f[0]]=i:(!Modernizr[f[0]]||Modernizr[f[0]]instanceof Boolean||(Modernizr[f[0]]=new Boolean(Modernizr[f[0]])),Modernizr[f[0]][f[1]]=i),t.push((i?"":"no-")+f.join("-"))}}function a(e){var n=f.className,s=Modernizr._config.classPrefix||"";if(c&&(n=n.baseVal),Modernizr._config.enableJSClass){var o=new RegExp("(^|\\s)"+s+"no-js(\\s|$)");n=n.replace(o,"$1"+s+"js$2")}Modernizr._config.enableClasses&&(n+=" "+s+e.join(" "+s),c?f.className.baseVal=n:f.className=n)}var t=[],r=[],l={_version:"3.5.0",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var s=this;setTimeout(function(){n(s[e])},0)},addTest:function(e,n,s){r.push({name:e,fn:n,options:s})},addAsyncTest:function(e){r.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=l,Modernizr=new Modernizr,Modernizr.addTest("promises",function(){return"Promise"in e&&"resolve"in e.Promise&&"reject"in e.Promise&&"all"in e.Promise&&"race"in e.Promise&&function(){var n;return new e.Promise(function(e){n=e}),"function"==typeof n}()}),Modernizr.addTest("webworkers","Worker"in e);var f=n.documentElement,c="svg"===f.nodeName.toLowerCase();Modernizr.addTest("filereader",!!(e.File&&e.FileList&&e.FileReader)),i(),a(t),delete l.addTest,delete l.addAsyncTest;for(var u=0;u<Modernizr._q.length;u++)Modernizr._q[u]();e.Modernizr=Modernizr}(window,document);
+//--></script>
+<script>
+"use strict";
+<!--
+// Generated by ajaxload.info and licensed under the terms of the Do What The Fuck You Want To Public License.
+var loadingIconUrl = "data:image/gif;base64,R0lGODlhEAAQAPIAAP///2ZmZtra2o2NjWZmZqCgoLOzs729vSH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==";
+
+// This script is licensed under the terms of the MIT License.
+// Copyright (C) 2017 Tsukasa OI.
+
+function hideErrorMessages()
+{
+	document.getElementById("demo_errors").style.display = "none";
+	document.getElementById("demo_errors_header").textContent = "";
+	var messagesElement = document.getElementById("demo_errors_msg");
+	while (messagesElement.firstChild)
+		messagesElement.removeChild(messagesElement.firstChild);
+}
+
+function addErrorMessage(category, msg)
+{
+	document.getElementById("demo_errors").style.display = "block";
+	document.getElementById("demo_errors_header").textContent = "Error";
+	var messagesElement = document.getElementById("demo_errors_msg");
+	var newMessageElement = document.createElement("li");
+	newMessageElement.textContent = msg;
+	newMessageElement.classList.add("msg-on-" + category);
+	messagesElement.appendChild(newMessageElement);
+}
+
+function clearErrorMessagesByCategory(category)
+{
+	var className = "msg-on-" + category;
+	var messagesElement = document.getElementById("demo_errors_msg");
+	if (!messagesElement.hasChildNodes())
+		return;
+	var elements = [];
+	for (var i = 0; i < messagesElement.childNodes.length; i++)
+		elements.push(messagesElement.childNodes[i]);
+	for (var i = 0; i < elements.length; i++)
+		if (elements[i].classList.contains(className))
+			messagesElement.removeChild(elements[i]);
+	if (!messagesElement.hasChildNodes())
+		hideErrorMessages();
+}
+
+
+document.getElementById("demo_hashgen_opt_display_filenames").addEventListener("change", function(e)
+{
+	var displayStyle = "none";
+	if (e.target.checked)
+		displayStyle = "inline";
+	var rules = document.getElementById("dynamic-rules").sheet.cssRules;
+	for (var i = 0; i < rules.length; i++)
+	{
+		if (rules[i].selectorText.toLowerCase() === ".ssdeep-filename")
+		{
+			rules[i].style.display = displayStyle;
+			break;
+		}
+	}
+});
+
+var ssdeepContext = null;
+var ssdeepHashFileTag = null;
+var ssdeepCompareSingleTag = null;
+(function()
+{
+	// Feature detection
+	{
+		var errors = 0;
+		if (!Modernizr.filereader)
+		{
+			errors++;
+			addErrorMessage("prerequisites", "File API is not supported. Browser supporting File API is required.");
+		}
+		if (!Modernizr.promises)
+		{
+			errors++;
+			addErrorMessage("prerequisites", "Promise (a feature of ECMAScript 6) is not supported. Browser supporting ECMAScript 6 (2015) is required.");
+		}
+		if (!Modernizr.webworkers)
+		{
+			errors++;
+			addErrorMessage("prerequisites", "Web Workers are not supported. Browser supporting Web Workers is required.");
+		}
+		if (!("WebAssembly" in window && typeof WebAssembly.compile === "function"))
+		{
+			errors++;
+			addErrorMessage("prerequisites", "WebAssembly is not supported. Browser supporting WebAssembly is required.");
+		}
+		if (errors !== 0)
+			return;
+	}
+	ssdeep.create().then(value =>
+	{
+		ssdeepContext = value;
+		document.getElementById("demo_hashgen_files").disabled = false;
+		document.getElementById("demo_hashcomp1_button").disabled = false;
+	});
+	document.getElementById("demo_hashcomp1_button").addEventListener("click", function(e)
+	{
+		e.preventDefault();
+		var outputElement = document.getElementById("demo_hashcomp1_output");
+		if (ssdeepContext === null)
+			return;
+		var files = e.target.files;
+		ssdeepCompareSingleTag = new Object();
+		ssdeepContext.resetPartOfWorkers(w => w.type === "COMPARE_1");
+		clearErrorMessagesByCategory("demo-hashcomp1");
+		while (outputElement.firstChild)
+			outputElement.removeChild(outputElement.firstChild);
+		{
+			var loadingImage = document.createElement("img");
+			loadingImage.src = loadingIconUrl;
+			loadingImage.classList.add("demo-progress-img");
+			outputElement.appendChild(loadingImage);
+		}
+		var hash1 = document.getElementById("demo_hashcomp1_hash1").value;
+		var hash2 = document.getElementById("demo_hashcomp1_hash2").value;
+		var compareSingle = new ssdeep.jobs.CompareSingle(hash1, hash2);
+		compareSingle.tag = ssdeepCompareSingleTag;
+		compareSingle.onsuccess = function(status)
+		{
+			if (this.tag !== ssdeepCompareSingleTag)
+				return;
+			var outputElement = document.getElementById("demo_hashcomp1_output");
+			while (outputElement.firstChild)
+				outputElement.removeChild(outputElement.firstChild);
+			if (status.data === 0)
+				outputElement.innerHTML = "<code id=\"demo_hashcomp1_hash1_out\"></code><br /> and <br /><code id=\"demo_hashcomp1_hash2_out\"></code> <br />did not match.";
+			else
+				outputElement.innerHTML = "<code id=\"demo_hashcomp1_hash1_out\"></code><br /> and <br /><code id=\"demo_hashcomp1_hash2_out\"></code> <br />matched with score <strong>" + status.data.toString() + "</strong>.";
+			document.getElementById("demo_hashcomp1_hash1_out").textContent = this.hash1;
+			document.getElementById("demo_hashcomp1_hash2_out").textContent = this.hash2;
+		};
+		compareSingle.onfailure = function(status)
+		{
+			if (this.tag !== ssdeepCompareSingleTag)
+				return;
+			var outputElement = document.getElementById("demo_hashcomp1_output");
+			while (outputElement.firstChild)
+				outputElement.removeChild(outputElement.firstChild);
+			addErrorMessage("demo-hashcomp1", "On comparison: " + status.msg);
+		};
+		compareSingle.onerror = function(status)
+		{
+			if (this.tag !== ssdeepCompareSingleTag)
+				return;
+			var outputElement = document.getElementById("demo_hashcomp1_output");
+			while (outputElement.firstChild)
+				outputElement.removeChild(outputElement.firstChild);
+			var msg = "Unexpected error has occurred while processing";
+			switch (status.type)
+			{
+			case "SOFTERROR":
+				msg += " (" + status.data + ")";
+				break;
+			case "HARDERROR_WORKER":
+				if (status.data !== null && status.data !== undefined)
+				{
+					msg += " (" + status.data.toString() + ")";
+				}
+				msg += ".";
+				break;
+			case "HARDERROR_RESPONSE":
+				msg += " (invalid response from Web Worker; might be a bug of this program or caching problem).";
+				break;
+			case "CANCELLED": // should be unreachable
+				msg = "This job is cancelled.";
+				break;
+			}
+			addErrorMessage("demo-hashcomp1", "On comparison: " + msg);
+		};
+		compareSingle.run(ssdeepContext);
+	}, false);
+	document.getElementById("demo_hashgen_files").addEventListener("change", function(e)
+	{
+		var notesElement = document.getElementById("demo_hashgen_notes");
+		var outputElement = document.getElementById("demo_hashgen_output");
+		if (ssdeepContext === null)
+			return;
+		var files = e.target.files;
+		ssdeepHashFileTag = new Object();
+		ssdeepContext.resetPartOfWorkers(w => w.type === "HASH_FILE");
+		clearErrorMessagesByCategory("demo-hashgen");
+		while (outputElement.firstChild)
+			outputElement.removeChild(outputElement.firstChild);
+		while (notesElement.firstChild)
+			notesElement.removeChild(notesElement.firstChild);
+		for (var i = 0; i < files.length; i++)
+		{
+			var file = files[i];
+			var hashFile = new ssdeep.jobs.HashFile(file);
+			hashFile.tag   = ssdeepHashFileTag;
+			hashFile.elem0 = document.createElement("li");
+			{
+				var loadingImage = document.createElement("img");
+				loadingImage.src = loadingIconUrl;
+				loadingImage.classList.add("demo-progress-img");
+				hashFile.elem0.appendChild(loadingImage);
+			}
+			{
+				hashFile.elem1 = document.createElement("span");
+				hashFile.elem1.classList.add("demo-progress");
+				hashFile.elem1.textContent = "0%: Processing " + file.name + "...";
+				hashFile.elem0.appendChild(hashFile.elem1);
+			}
+			outputElement.appendChild(hashFile.elem0);
+			hashFile.onsuccess = function(status)
+			{
+				if (this.tag !== ssdeepHashFileTag)
+					return;
+				while (this.elem0.firstChild)
+					this.elem0.removeChild(this.elem0.firstChild);
+				this.elem1 = null;
+				{
+					var element = document.createElement("code");
+					element.classList.add("ssdeep-hash");
+					element.textContent = status.data;
+					this.elem0.appendChild(element);
+				}
+				{
+					var element = document.createElement("span");
+					element.classList.add("ssdeep-filename");
+					element.textContent = ",\"" + this.file.name.replace("\"", "\\\"") + "\"";
+					this.elem0.appendChild(element);
+				}
+				if (status.msg !== null)
+				{
+					var element = document.createElement("li");
+					var elem0 = document.createElement("span");
+					elem0.textContent = this.file.name + ": ";
+					var elem1 = document.createElement("span");
+					elem1.textContent = status.msg;
+					elem1.classList.add("demo-hashgen-msg");
+					element.appendChild(elem0);
+					element.appendChild(elem1);
+					document.getElementById("demo_hashgen_notes").appendChild(element);
+				}
+			};
+			hashFile.onfailure = function(status)
+			{
+				if (this.tag !== ssdeepHashFileTag)
+					return;
+				document.getElementById("demo_hashgen_output").removeChild(this.elem0);
+				addErrorMessage("demo-hashgen", this.file.name + ": " + status.msg);
+			};
+			hashFile.onerror = function(status)
+			{
+				if (this.tag !== ssdeepHashFileTag)
+					return;
+				document.getElementById("demo_hashgen_output").removeChild(this.elem0);
+				var msg = "Unexpected error has occurred while processing";
+				switch (status.type)
+				{
+				case "SOFTERROR":
+					msg += " (" + status.data + ")";
+					break;
+				case "HARDERROR_WORKER":
+					if (status.data !== null && status.data !== undefined)
+					{
+						msg += " (" + status.data.toString() + ")";
+					}
+					msg += ".";
+					break;
+				case "HARDERROR_RESPONSE":
+					msg += " (invalid response from Web Worker; might be a bug of this program or caching problem).";
+					break;
+				case "CANCELLED": // should be unreachable
+					msg = "This job is cancelled.";
+					break;
+				}
+				addErrorMessage("demo-hashgen", this.file.name + ": " + msg);
+			};
+			hashFile.onprogress = function(status)
+			{
+				if (this.tag !== ssdeepHashFileTag)
+					return;
+				var percent = status.current / status.total * 100.0;
+				percent |= 0;
+				this.elem1.textContent = percent.toString() + "%: Processing " + this.file.name + "...";
+			};
+			hashFile.run(ssdeepContext);
+		}
+	}, false);
+})();
+
+//--></script>
+</body>
+</html>
