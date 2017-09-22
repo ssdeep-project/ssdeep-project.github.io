@@ -14,7 +14,7 @@ h1{font-weight:normal;font-size:1.4em}
 #topnav li a.topnav-active{background:#4caf50}
 #topnav li:last-child{float:right;border-width:0}
 #topnav li:last-child a:hover{background:#af4c50}
-@media screen and (max-width:600px){#topnav li:last-child,#topnav li,#project-title,#title{float:none}#title:before{content:''}#title{padding-top:0}}
+@media screen and (max-width:600px){#topnav li:last-child,#topnav li,#project-title,#title{float:none}#title:before{content:''}#title{padding-top:0}#topnav li{border-width:0}}
 .content{padding:0 0.8em 2em;line-height:1.4em}
 .content h2{font-weight:bold;font-size:1.45em;margin:1em 0 0.4em;padding:0.1em 0}
 .content h3{font-weight:bold;font-size:1.15em;margin:0.9em 0 0.6em 0.3em}
