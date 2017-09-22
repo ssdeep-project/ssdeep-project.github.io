@@ -16,7 +16,7 @@ input{margin-right:0.7em}
 .demo-progress{font-style:italic}
 .demo-progress-img{margin-right:1em}
 .demo-hashgen-msg{color:#c66}
-#demo_hashgen_output,#demo_hashcomp1_output{overflow:auto;overflow-x:auto;overflow-y:hidden;padding-bottom:0.5em}
+#demo_hashgen_input,#demo_hashgen_output,#demo_hashcomp1_output{overflow:auto;overflow-x:auto;overflow-y:hidden;padding-bottom:1em}
 </style>
 <style type="text/css" id="dynamic-rules">
 .ssdeep-filename{display:inline}
@@ -62,7 +62,7 @@ It does not upload your data to some remote server but requires modern Web techn
 <p><label><input id="demo_hashgen_opt_display_filenames" type="checkbox" checked="1" />Display file names on output</label></p>
 <h3>Input</h3>
 <form>
-<p>
+<p id="demo_hashgen_input">
 <input type="reset" /><input type="file" id="demo_hashgen_files" name="demo_hashgen_files[]" multiple="1" disabled="1" />
 </p>
 </form>
