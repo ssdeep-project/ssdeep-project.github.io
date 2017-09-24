@@ -162,7 +162,7 @@ ssdeep,1.1--blocksize:hash:hash,filename
 <h2 id="error">Error Messages</h2>
 <p>
 If an input file can't be found or can't be accessed, an error message is normally printed.
-These, and all other error messages, can be surpressed by using the <code>-s</code> flag.
+These, and all other error messages, can be suppressed by using the <code>-s</code> flag.
 </p>
 <blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep doesnotexist.txt cannotaccess.txt</span>
 /workdir/doesnotexist.txt: No such file or directory
@@ -177,7 +177,7 @@ Of course, you can also redirect the standard error output:
 <h2 id="recursive">Recursive Mode</h2>
 <p>
 Normally, attempting to process a directory will generate an error message.
-Under recursive mode, ssdeep will hash files in the current directory and file in subdirectories.
+Under recursive mode, ssdeep will hash specified files and files in specified directory including its subdirectories.
 Recursive mode is activated by using the <code>-r</code> flag.
 </p>
 <blockquote><code><pre><span class="code-console">[user@localhost /workdir]$ ssdeep *</span>
@@ -345,7 +345,7 @@ Copyright &copy; 2008-2015 Jesse Kornblum;
 Copyright &copy; 2017 Tsukasa OI
 </p>
 <p>
-This page was last updated on 2017-09-20.
+This page was last updated on 2017-09-25.
 </p>
 </div>
 </footer>
