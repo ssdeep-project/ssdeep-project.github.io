@@ -126,4 +126,4 @@ SEE ALSO
        This program is based on SpamSum by Dr. Andrews Tridgell.
        http://www.samba.org/ftp/unpacked/junkcode/spamsum/
 
-ssdeep Project          Version 2.14 - 12 Sep 2017               SSDEEP(1)
+ssdeep Project          Version 2.14.1 - 7 Nov 2017              SSDEEP(1)
